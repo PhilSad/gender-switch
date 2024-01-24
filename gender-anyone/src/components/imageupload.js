@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Button, Card, CardMedia } from '@mui/material';
+import ReactCrop from 'react-image-crop'
+import 'react-image-crop/dist/ReactCrop.css'
 
-const ImageUpload = ({ image, setImage }) => {
+const ImageUpload = ({ image, setImage, crop, setCrop }) => {
+
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -25,14 +28,14 @@ const ImageUpload = ({ image, setImage }) => {
                     Upload
                 </Button>
             </label>
+
             {image && (
-                <Card>
-                    <CardMedia
-                        component="img"
-                        alt="Uploaded Image"
-                        image={image}
-                    />
-                </Card>
+                <ReactCrop crop={crop} onChange={c => setCrop(c)}
+                    aspect={1 / 1}
+                >
+                    <img src={image} />
+                </ReactCrop>
+
             )}
         </div>
     );
